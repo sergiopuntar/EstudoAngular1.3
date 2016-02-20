@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>angularjspoc</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <link rel="stylesheet" href="css/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
+    
+    <script src="js/lib/require.js" data-main="js/require-config.js"></script>
+</head>
+<body ng-controller="ShowcaseCtrl">
+	<header>
+		<div class="container">
+			<h1 ui-sref="home">AngularJS POC</h1>
+			<p>Showcase de componentes baseados em AngularJS e serviços REST</p>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<aside class="col-md-3">
+				<div class="list-group">
+					<a class="list-group-item" ui-sref="cadastrometadados.entidades" ng-class="{active: ehEstadoAtual('cadastrometadados')}">Cadastro de Metadados</a>
+					<a class="list-group-item" ui-sref-active="active">Dapibus ac facilisis in</a>
+					<a class="list-group-item" ui-sref-active="active">Morbi leo risus</a>
+					<a class="list-group-item" ui-sref-active="active">Porta ac consectetur ac</a>
+					<a class="list-group-item" ui-sref-active="active">Vestibulum at eros</a>
+				</div>
+			</aside>
+			<section id="content" class="col-md-9" ui-view>
+			</section>
+		</div>
+	</div>
+	<footer></footer>
+</body>

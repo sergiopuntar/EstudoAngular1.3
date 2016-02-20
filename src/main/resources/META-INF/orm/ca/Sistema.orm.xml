@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+	
+	<named-query name="Sistema.findAll">
+		<query>
+			SELECT s FROM Sistema s
+		</query>
+	</named-query>
+	
+	<entity class="br.com.anbima.commons.domain.entity.ca.Sistema">
+		<table schema="CA" name="SISTEMA" />
+		
+		<attribute-override name="oid">
+			<column name="SIST_ID_SISTEMA" />
+		</attribute-override>
+		
+		<attributes>
+			<basic name="nome">
+				<column name="SIST_NM_SISTEMA" nullable="false" length="50" />
+			</basic>
+			
+			<basic name="sigla">
+				<column name="SIST_SG_SISTEMA" nullable="false" length="10" />
+			</basic>
+			
+			<basic name="descricao">
+				<column name="SIST_DS_SISTEMA" length="200" />
+			</basic>
+			
+			<one-to-many name="perfisAcesso" mapped-by="sistema" />
+		</attributes>
+	</entity>
+	
+</entity-mappings>

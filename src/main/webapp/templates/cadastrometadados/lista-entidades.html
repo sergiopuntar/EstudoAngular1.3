@@ -1,0 +1,47 @@
+<alert type="success" close="limparMensagemSucesso()" ng-show="mensagemSucesso">
+	<span>{{mensagemSucesso}}</span>
+</alert>
+
+<div class="row">
+	<div class="form-group col-md-8">
+		<input id="filtro-entidades" class="form-control col-md-6" type="text" name="filtroEntidades" placeholder="Filtrar entidades" ng-model="ListaEntidades.filter.text"/>
+	</div>
+	<div class="form-group col-md-4">
+		<button id="botao-nova-entidade" class="btn btn-default" type="button" ng-click="inicializarNovaEntidade()">
+			<span class="glyphicon glyphicon-plus"></span> Nova Entidade
+		</button>
+	</div>
+</div>
+
+<div id="lista-entidades">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th class="titulo-entidade col-md-4">T&iacute;tulo</th>
+				<th class="classe-entidade col-md-6">Classe</th>
+				<th class="acoes-entidade col-md-2"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="entidadeLocal in ListaEntidades.filteredItens | orderBy:'titulo' | startFrom:(ListaEntidades.currentPage - 1) * ListaEntidades.pageSize | limitTo:ListaEntidades.pageSize">
+				<td class="titulo-entidade col-md-4">{{entidadeLocal.titulo}}</td>
+				<td class="classe-entidade col-md-6">{{entidadeLocal.nomeQualificadoClasse}}</td>
+				<td class="acoes-entidade col-md-2">
+					<a href title="Editar" ng-click="selecionarEntidade(entidadeLocal.oid)"><span class="glyphicon glyphicon-pencil"></span></a>
+					<!-- a href title="Excluir" ng-click="excluirEntidade(entidadeLocal.oid)"><span class="glyphicon glyphicon-trash"></span></a -->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="carregando" ng-show="ListaEntidades.loading">
+		<p>Carregando Entidades...</p>
+	</div>
+	<div class="erro-carregamento" ng-show="ListaEntidades.loadError">
+		<p class="text-danger">Ocorreu um erro ao carregar as entidades.</p>
+	</div>
+</div>
+
+<div id="paginacao-lista-entidades" ng-hide="ListaEntidades.filteredItens.length === 0">
+	<pagination ng-model="ListaEntidades.currentPage" total-items="ListaEntidades.filteredItens.length" items-per-page="ListaEntidades.pageSize"
+		direction-links="true" previous-text="Anterior" next-text="Próxima" boundary-links="true" first-text="Primeira" last-text="Última"></pagination>
+</div>

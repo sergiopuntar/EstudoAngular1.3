@@ -1,0 +1,49 @@
+<form id="form-cadastro-entidade" name="cadastroEntidade" role="form" ng-submit="salvarEntidade()">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Entidade</a></li>
+					<li ng-class="{disabled: entidade.oid == null}"><a href="#">Atributos</a></li>
+					<li ng-class="{disabled: entidade.oid == null}"><a href="#">Consultas</a></li>
+				</ul>
+			</div>
+			<div class="navbar-collapse">
+				<div class="nav navbar-nav navbar-right">
+					<input id="botao-salvar-entidade" class="btn btn-primary navbar-btn" type="submit" value="Salvar" />
+					<input id="botao-cancelar-entidade" class="btn btn-warning navbar-btn" type="button" value="Cancelar" ui-sref="cadastrometadados.entidades" />
+					<input id="botao-excluir-entidade" class="btn btn-danger navbar-btn" type="button" value="Excluir" ng-click="excluirEntidade()" ng-show="entidade.oid != null" />
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<input id="cadastro-entidade-oid" type="hidden" name="oid" ng-model="entidade.oid" />
+	
+	<div class="form-group">
+		<label for="cadastro-entidade-titulo">T&iacute;tulo:</label>
+		<input id="cadastro-entidade-titulo" class="form-control" type="text" name="titulo" ng-model="entidade.titulo"/>
+		<span class="text-danger" ng-show="errors.fields.titulo" ng-repeat="fieldError in errors.fields.titulo">{{fieldError}}</span>
+	</div>
+	
+	<div class="form-group">
+		<label for="cadastro-entidade-nome-classe">Nome da clase:</label>
+		<input id="cadastro-entidade-nome-classe" class="form-control" type="text" name="nomeClasse" ng-model="entidade.nomeClasse"/>
+		<span class="text-danger" ng-show="errors.fields.nomeClasse" ng-repeat="fieldError in errors.fields.nomeClasse">{{fieldError}}</span>
+	</div>
+	
+	<div class="form-group">
+		<label for="cadastro-entidade-nome-qualificado-classe">Nome qualificado da classe:</label>
+		<input id="cadastro-entidade-nome-qualificado-classe" class="form-control" type="text" name="nomeQualificadoClasse" ng-model="entidade.nomeQualificadoClasse"/>
+		<span class="text-danger" ng-show="errors.fields.nomeQualificadoClasse" ng-repeat="fieldError in errors.fields.nomeQualificadoClasse">{{fieldError}}</span>
+	</div>
+	
+	<div class="form-group">
+		<input id="cadastro-entidade-visivel-cadastro" type="checkbox" name="visivelCadastro" ng-model="entidade.visivelCadastro"> 
+ 			<label>Vis&iacute;vel no Cadastro Gen&eacute;rico</label>
+	</div>
+	
+	<alert type="danger" close="errors.general = null" ng-show="errors.general">
+		<span ng-repeat="generalError in errors.general">{{generalError}}</span>
+	</alert>
+</form>

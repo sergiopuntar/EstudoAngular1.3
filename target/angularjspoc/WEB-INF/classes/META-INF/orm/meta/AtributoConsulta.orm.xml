@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+
+	<entity class="br.com.anbima.commons.domain.entity.meta.AtributoConsulta">
+		<table schema="META" name="ATRIBUTO_CONSULTA_METADADOS" />
+
+		<attribute-override name="oid">
+			<column name="ATCM_ID_ATRIBUTO_CONSULTA_META" />
+		</attribute-override>
+
+		<attributes>
+			<basic name="classesCss">
+				<column name="ATCM_TX_CLASSES_CSS" length="100" />
+			</basic>
+
+			<basic name="alinhamento">
+				<column name="ATCM_TX_ALINHAMENTO" length="6" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<basic name="ordenacao">
+				<column name="ATCM_NR_ORDENACAO" nullable="false" precision="3"
+					scale="0" />
+			</basic>
+
+			<basic name="apresentar">
+				<column name="ATCM_IN_APRESENTAR" nullable="false" length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<basic name="apresentarPadrao">
+				<column name="ATCM_IN_APRESENTAR_PADRAO" nullable="false"
+					length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<basic name="filtragem">
+				<column name="ATCM_IN_FILTRAGEM" nullable="false" length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<basic name="link">
+				<column name="ATCM_IN_LINK" nullable="false" length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<basic name="nomePropriedadeLink">
+				<column name="ATCM_NM_PROPRIEDADE_LINK" length="500" />
+			</basic>
+
+			<basic name="labelLink">
+				<column name="ATCM_NM_LABEL_LINK" length="200" />
+			</basic>
+
+			<basic name="acaoLink">
+				<column name="ATCM_TX_ACAO_LINK" length="200" />
+			</basic>
+
+			<many-to-one name="consulta">
+				<join-column name="COME_ID_CONSULTA_METADADOS" nullable="false" />
+			</many-to-one>
+
+			<many-to-one name="atributoEntidade">
+				<join-column name="ATEM_ID_ATRIBUTO_ENTIDADE_META" nullable="false" />
+			</many-to-one>
+		</attributes>
+	</entity>
+
+</entity-mappings>

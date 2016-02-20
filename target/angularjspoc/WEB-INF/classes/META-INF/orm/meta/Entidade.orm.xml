@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+	
+	<named-query name="Entidade.buscarPorNomeQualificadoClasse">
+		<query>
+			SELECT DISTINCT e
+			FROM Entidade e
+			WHERE e.nomeQualificadoClasse = :nomeQualificadoClasseEntidade
+		</query>
+	</named-query>
+	
+	<entity class="br.com.anbima.commons.domain.entity.meta.Entidade">
+		<table schema="META" name="ENTIDADE_METADADOS" />
+		
+		<attribute-override name="oid">
+			<column name="ENME_ID_ENTIDADE_METADADOS" />
+		</attribute-override>
+		
+		<attributes>
+			<basic name="titulo">
+				<column name="ENME_TX_TITULO" nullable="false" length="100"/>
+			</basic>
+			
+			<basic name="nomeClasse">
+				<column name="ENME_NM_CLASSE" nullable="false" length="100"/>
+			</basic>
+			
+			<basic name="nomeQualificadoClasse">
+				<column name="ENME_NM_QUALIFICADO_CLASSE" nullable="false" length="500"/>
+			</basic>
+			
+			<basic name="visivelCadastro">
+				<column name="ENME_IN_VISIVEL_CADASTRO" nullable="false" length="1"/>
+				<enumerated>STRING</enumerated>
+			</basic>
+			
+			<many-to-one name="consulta">
+				<join-column name="COME_ID_CONSULTA_METADADOS" />
+			</many-to-one>
+			
+			<one-to-many name="atributos" mapped-by="entidadeOrigem" >
+				<cascade>
+					<cascade-persist />
+					<cascade-remove />
+				</cascade>
+			</one-to-many>
+			
+			<one-to-many name="consultas" mapped-by="entidade" />
+			
+			<one-to-many name="permissoes" mapped-by="entidade" />
+		</attributes>
+	</entity>
+	
+</entity-mappings>

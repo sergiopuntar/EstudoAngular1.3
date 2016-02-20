@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+	
+	<named-query name="AtributoEntidade.buscarDescritivosEntidadePorIdEntidade">
+		<query>
+			SELECT ae
+			FROM AtributoEntidade ae
+			WHERE ae.descritivo = br.com.anbima.commons.domain.valueobject.IndicadorSimNao.S
+			  AND ae.entidadeOrigem.oid = :oidEntidade
+			ORDER BY ae.ordenacao ASC
+		</query>
+	</named-query>
+	
+	<entity class="br.com.anbima.commons.domain.entity.meta.AtributoEntidade">
+		<table schema="META" name="ATRIBUTO_ENTIDADE_METADADOS" />
+		
+		<attribute-override name="oid">
+			<column name="ATEM_ID_ATRIBUTO_ENTIDADE_META" />
+		</attribute-override>
+		
+		<attributes>
+			<basic name="titulo">
+				<column name="ATEM_TX_TITULO" nullable="false" length="100" />
+			</basic>
+			
+			<basic name="nomePropriedade">
+				<column name="ATEM_NM_PROPRIEDADE" nullable="false" length="500" />
+			</basic>
+			
+			<basic name="tipoDado">
+				<column name="ATEM_TX_TIPO_DADO" nullable="false" length="500" />
+			</basic>
+			
+			<basic name="tipoTemporal">
+				<column name="ATEM_TX_TIPO_TEMPORAL" length="9" />
+				<enumerated>STRING</enumerated>
+			</basic>
+			
+			<basic name="ordenacao">
+				<column name="ATEM_NR_ORDENACAO" nullable="false" precision="3" scale="0" />
+			</basic>
+			
+			<basic name="nomeComponente">
+				<column name="ATEM_NM_COMPONENTE" length="100" />
+			</basic>
+			
+			<basic name="dicaPreenchimento">
+				<column name="ATEM_TX_DICA_PREENCHIMENTO" length="200" />
+			</basic>
+			
+			<basic name="mascaraFormatacao">
+				<column name="ATEM_TX_MASCARA_FORMATACAO" length="50" />
+			</basic>
+			
+			<basic name="mensagemErroConversao">
+				<column name="ATEM_TX_MSG_ERRO_CONVERSAO" length="200" />
+			</basic>
+			
+			<basic name="tamanho">
+				<column name="ATEM_VL_TAMANHO" precision="10" scale="0" />
+			</basic>
+			
+			<basic name="identificador">
+				<column name="ATEM_IN_IDENTIFICADOR" nullable="false" length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+			
+			<basic name="descritivo">
+				<column name="ATEM_IN_DESCRITIVO" nullable="false" length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+			
+			<basic name="visivelCadastro">
+				<column name="ATEM_IN_VISIVEL_CADASTRO" nullable="false" length="1" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<many-to-one name="entidadeOrigem">
+				<join-column name="ENME_ID_ENTIDADE_METADADOS_ORI" nullable="false"/>
+			</many-to-one>
+			
+			<many-to-one name="entidadeRepresentada">
+				<join-column name="ENME_ID_ENTIDADE_METADADOS_REP" />
+			</many-to-one>
+			
+			<one-to-many name="permissoes" mapped-by="atributoEntidade" />
+		</attributes>
+	</entity>
+	
+</entity-mappings>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+	
+	<named-query name="PerfilAcesso.findAll">
+		<query>
+			SELECT p FROM PerfilAcesso p
+		</query>
+	</named-query>
+	
+	<named-query name="PerfilAcesso.buscarPorSiglaSistema">
+		<query>
+			SELECT p FROM PerfilAcesso p
+			JOIN p.sistema s
+			WHERE s.sigla = :siglaSistema
+		</query>
+	</named-query>
+	
+	<named-query name="PerfilAcesso.buscarPorSiglaSistemaNomePerfil">
+		<query>
+			SELECT p FROM PerfilAcesso p
+			JOIN p.sistema s
+			WHERE s.sigla = :siglaSistema
+			AND p.nome = :nomePerfil
+		</query>
+	</named-query>
+	
+	<named-query name="PerfilAcesso.buscarPorSiglaSistemaNomesPerfis">
+		<query>
+			SELECT p FROM PerfilAcesso p
+			JOIN p.sistema s
+			WHERE s.sigla = :siglaSistema
+			AND p.nome in (:nomesPerfis)
+		</query>
+	</named-query>
+	
+	<entity class="br.com.anbima.commons.domain.entity.ca.PerfilAcesso">
+		<table schema="CA" name="PERFIL_ACESSO" />
+		
+		<attribute-override name="oid">
+			<column name="PEAC_ID_PERFIL" />
+		</attribute-override>
+		
+		<attributes>
+			<basic name="nome">
+				<column name="PEAC_NM_PERFIL" nullable="false" length="50" />
+			</basic>
+			
+			<basic name="descricao">
+				<column name="PEAC_DS_PERFIL" length="200" />
+			</basic>
+			
+			<many-to-one name="sistema">
+				<join-column name="SIST_ID_SISTEMA" nullable="false"/>
+			</many-to-one>
+		</attributes>
+	</entity>
+	
+</entity-mappings>
